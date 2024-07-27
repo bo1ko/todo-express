@@ -1,0 +1,4 @@
+{
+    "dbURI": "mongodb+srv://<login>:<password>@cluster0.bzwlbdr.mongodb.net/todo_db?retryWrites=true&w=majority&appName=Cluster0",
+    "port": 3000
+}
