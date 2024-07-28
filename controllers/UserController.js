@@ -1,10 +1,13 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 import UserModel from "../models/User.js";
 
+export const getRegister = (req, res) => {
+    res.render("register", { title: "Register" });
+};
 
-export const register = async (req, res) => {
+export const postRegister = async (req, res) => {
     try {
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
@@ -15,33 +18,15 @@ export const register = async (req, res) => {
             email: req.body.email,
             passwordHash: hash,
         });
-
-        const user = await doc.save();
-
-        const token = jwt.sign(
-            {
-                id: user._id,
-            },
-            'secret123',
-            {
-                expiresIn: '30d',
-            },
-        );
-
-        const { passwordHash, ...userData } = user._doc;
-
-        res.json({
-            ...userData,
-            token,
-        });
-
+        
+        res.redirect("/todo");
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
+        res.status(500).render("register", {
+            title: "Register",
             message: "Failed to register",
         });
     }
-}
+};
 
 export const login = async (req, res) => {
     try {
@@ -53,7 +38,10 @@ export const login = async (req, res) => {
             });
         }
 
-        const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
+        const isValidPass = await bcrypt.compare(
+            req.body.password,
+            user._doc.passwordHash
+        );
 
         if (!isValidPass) {
             return res.status(400).json({
@@ -65,9 +53,9 @@ export const login = async (req, res) => {
             {
                 _id: user._id,
             },
-            'secret123',
+            "secret123",
             {
-                expiresIn: '30d',
+                expiresIn: "30d",
             }
         );
 
@@ -83,7 +71,7 @@ export const login = async (req, res) => {
             message: "Failed to register",
         });
     }
-}
+};
 
 export const getMe = async (req, res) => {
     try {
@@ -92,16 +80,16 @@ export const getMe = async (req, res) => {
         if (!user) {
             return res.status(400).json({
                 message: "User not found",
-            })
+            });
         }
 
         const { passwordHash, ...userData } = user._doc;
 
-        res.json( userData );
+        res.json(userData);
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            message: "No access"
-        })
+            message: "No access",
+        });
     }
-}
+};

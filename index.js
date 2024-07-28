@@ -28,7 +28,7 @@ app.use(express.json());
 
 app.use('/', mainRoutes);
 app.use('/todo', taskRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(port, () => {
     console.log('SERVER OK')

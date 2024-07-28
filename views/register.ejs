@@ -1,0 +1,41 @@
+<%- include("./inc/head.ejs") %>
+
+<div class="register__wrapper wrapper">
+  <main class="main text-center">
+    <div class="container text-light mt-5">
+      <h1>Register</h1>
+      <% if (typeof message !== 'undefined') { %>
+      <div id="error-message" class="alert alert-danger" role="alert"><%= message %></div>
+      <% } %>
+      <form action="/auth/register/" method="POST">
+        <div class="field mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input name="name" class="fs-4 form-control" id="name" required />
+        </div>
+        <div class="field mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            class="fs-4 form-control"
+            id="email"
+            required
+          />
+        </div>
+        <div class="field mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="fs-4 form-control"
+            id="password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div>
+  </main>
+</div>
+
+<%- include("./inc/footer.ejs") %>

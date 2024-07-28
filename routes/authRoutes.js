@@ -6,7 +6,8 @@ import { handleValidationErrors, checkAuth } from "../utils/index.js";
 
 const router = express.Router();
 
-router.post('/register', registerValidation, handleValidationErrors, UserController.register);
+router.get('/register', UserController.getRegister);
+router.post('/register', registerValidation, handleValidationErrors, UserController.postRegister);
 router.post('/login', loginValidation, handleValidationErrors, UserController.login);
 router.get('/me', checkAuth, handleValidationErrors, UserController.getMe);
 
