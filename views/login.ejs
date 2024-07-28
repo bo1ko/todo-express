@@ -4,16 +4,12 @@
   <main class="main text-center">
     <div class="container text-light mt-5">
       <h1>
-        <a href="/" class="home__link">Register</a>
+        <a href="/" class="home__link">Login</a>
       </h1>
       <% if (typeof message !== 'undefined') { %>
       <div id="error-message" class="alert alert-danger" role="alert"><%= message %></div>
       <% } %>
       <form action="/auth/register/" method="POST">
-        <div class="field mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input name="name" class="fs-4 form-control" id="name" required />
-        </div>
         <div class="field mb-3">
           <label for="email" class="form-label">Email address</label>
           <input
@@ -34,7 +30,7 @@
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Sign in</button>
       </form>
     </div>
   </main>

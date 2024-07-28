@@ -1,8 +1,3 @@
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
 .index__wrapper {
   height: 100vh;
   display: flex;
@@ -10,6 +5,16 @@ body, html {
   justify-content: center;
   align-items: center;
   padding-bottom: 300px;
+}
+
+.home__link {
+  color: #fff;
+  text-decoration: none; /* no underline */
+}
+
+.home__link:hover { 
+  display: block; 
+  color: #fff;
 }
 
 .register__wrapper {

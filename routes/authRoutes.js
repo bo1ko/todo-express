@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/register', UserController.getRegister);
 router.post('/register', registerValidation, handleValidationErrors, UserController.postRegister);
-router.post('/login', loginValidation, handleValidationErrors, UserController.login);
+router.get('/login', UserController.getLogin);
+router.post('/login', loginValidation, handleValidationErrors, UserController.postLogin);
 router.get('/me', checkAuth, handleValidationErrors, UserController.getMe);
 
 export default router;

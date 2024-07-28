@@ -18,8 +18,10 @@ export const postRegister = async (req, res) => {
             email: req.body.email,
             passwordHash: hash,
         });
-        
-        res.redirect("/todo");
+
+        const user = await doc.save();
+
+        res.render("todo");
     } catch (error) {
         res.status(500).render("register", {
             title: "Register",
@@ -28,7 +30,11 @@ export const postRegister = async (req, res) => {
     }
 };
 
-export const login = async (req, res) => {
+export const getLogin = (req, res) => {
+    res.render("login", { title: "Login" });
+}
+
+export const postLogin = async (req, res) => {
     try {
         const user = await UserModel.findOne({ email: req.body.email });
 
@@ -49,22 +55,7 @@ export const login = async (req, res) => {
             });
         }
 
-        const token = jwt.sign(
-            {
-                _id: user._id,
-            },
-            "secret123",
-            {
-                expiresIn: "30d",
-            }
-        );
-
-        const { passwordHash, ...userData } = user._doc;
-
-        res.json({
-            ...userData,
-            token,
-        });
+        res.render("todo");
     } catch (error) {
         console.log(error);
         res.status(500).json({
