@@ -63,24 +63,3 @@ export const postLogin = async (req, res) => {
         });
     }
 };
-
-export const getMe = async (req, res) => {
-    try {
-        console.log(req.userId);
-        const user = await UserModel.findById(req.userId);
-        if (!user) {
-            return res.status(400).json({
-                message: "User not found",
-            });
-        }
-
-        const { passwordHash, ...userData } = user._doc;
-
-        res.json(userData);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "No access",
-        });
-    }
-};
