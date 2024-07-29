@@ -1,43 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  
+<%- include("./inc/head.ejs") %>
 
-  <body>
-    <div class="container">
-      
-
-      <ul class="list-group todos mx-auto text-light delete">
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          <span>Go to the grocery</span>
-          <i class="far fa-trash-alt delete"></i>
-        </li>
-
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          <span>Do the Laundry</span>
-          <i class="far fa-trash-alt delete"></i>
-        </li>
-
-        <li
-          class="list-group-item d-flex justify-content-between align-items-center"
-        >
-          <span>Walk the dog</span>
-          <i class="far fa-trash-alt delete"></i>
-        </li>
-      </ul>
-
-      <form class="add text-center my-4">
-        <label class="text-light">Add a new todo...</label>
-        <input class="form-control m-auto" type="text" name="add" />
-        <br />
-        <div class="text-center">
-          <input type="submit" class="btn btn-light" />
-        </div>
-      </form>
+<div class="index__wrapper wrapper">
+  <%- include("./inc/headers.ejs") %>
+  <main class="main text-center">
+    <p class="main__desc text-light text-center">
+      To use the app, do one of the following
+    </p>
+    <div class="main__container container">
+      <a href="auth/login" class="main__btn btn btn-light btn-lg"
+        >Sign in</a
+      >
+      <a href="auth/register" class="main__btn btn btn-light btn-lg"
+        >Sign up</a
+      >
     </div>
+  </main>
+</div>
 
-  </body>
-</html>
+<%- include("./inc/footer.ejs") %>

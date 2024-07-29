@@ -50,16 +50,16 @@ export const postLogin = async (req, res) => {
         );
 
         if (!isValidPass) {
-            return res.status(400).json({
+            return res.status(400).render("login", {
                 message: "Wrong name or password",
             });
         }
 
         res.render("todo");
     } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: "Failed to register",
+        res.status(500).render("login", {
+            title: "Login",
+            message: "Login failed",
         });
     }
 };
