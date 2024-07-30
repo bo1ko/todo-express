@@ -2,35 +2,12 @@
 
 <div class="index__wrapper wrapper">
   <header class="index__header text-center text-light my-4">
-    <h1 class="mb-4">Todo List</h1>
+    <h1 class="mb-4"><a class="disable-styles" href="/">Todo List</a></h1>
   </header>
   <main class="main text-center">
-    <div class="main__row row">
-      <div class="main__col col">
-        <form class="add text-center my-4" action="/" method="post">
-          <label class="text-light">Add a new todo...</label>
-          <input
-            class="form-control m-auto mb-3"
-            type="text"
-            name="title"
-            placeholder="TITLE"
-          />
-          <input
-            class="form-control m-auto"
-            type="text"
-            name="description"
-            placeholder="DESCRIPTION"
-          />
-          <br />
-          <div class="text-center">
-            <input type="submit" class="btn btn-light" />
-          </div>
-        </form>
-      </div>
-
-      <div class="main__col col">
+    <div class="task__row row">
+      <div class="task__col col">
         <ul class="list-group todos mx-auto text-light delete">
-          <% tasks.forEach(function(task) { %>
           <li
             class="item list-group-item d-flex justify-content-between align-items-center"
             id="task-<%= task._id %>"
@@ -75,19 +52,39 @@
             <!-- middle  -->
             <div class="middle">
               <% if(task.description.length > 35){ %>
-                <p><%= task.description.substring(0, 35) %>.....</p>
+              <p><%= task.description.substring(0, 35) %>.....</p>
               <% } else { %>
-                <p><%= task.description %></p>
+              <p><%= task.description %></p>
               <% } %>
             </div>
-            <!-- bottom -->
-            <div class="bottom">
-              <a href="/<%= task._id %>">More</a>
-            </div>
           </li>
-          <% }); %>
         </ul>
       </div>
+    </div>
+    <div class="task__col col">
+      <form
+        class="update text-center my-4"
+        action="/<%= task.id %>"
+        method="post"
+      >
+        <label class="text-light">Update task</label>
+        <input
+          class="form-control m-auto mb-3"
+          type="text"
+          name="title"
+          placeholder="TITLE"
+        />
+        <input
+          class="form-control m-auto"
+          type="text"
+          name="description"
+          placeholder="DESCRIPTION"
+        />
+        <br />
+        <div class="text-center">
+          <input type="submit" class="btn btn-light" />
+        </div>
+      </form>
     </div>
   </main>
 </div>

@@ -8,6 +8,7 @@ export const createTask = async (req, res) => {
         });
 
         const savedTask = await task.save();
+
         res.status(201).json(savedTask);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -16,10 +17,10 @@ export const createTask = async (req, res) => {
 
 export const getAllTasks = async (req, res) => {
     try {
-        const tasks = await Task.find();
-        res.status(200).render('todo', { tasks: tasks })
+        const tasks = await Task.find().sort('-updatedAt');
+        res.status(200).render('index', { tasks: tasks })
     } catch (error) {
-        res.status(500).render('error', { message: error.message });
+        res.status(500).render('error', { message: '500 Internal Server Error' });
     }
 };
 
@@ -28,12 +29,12 @@ export const getTaskById = async (req, res) => {
         const task = await Task.findById(req.params.id);
 
         if (task) {
-            res.status(200).json(task);
+            res.status(200).render('task', { task: task });
         } else {
-            res.status(404).json('Task not found!');
+            res.status(404).render('error', { message: 'Task not found' });
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).render('error', { message: error.message });
     }
 };
 
@@ -57,7 +58,7 @@ export const updateTask = async (req, res) => {
             res.status(404).json('Task not found!')
         }
     } catch (error) {
-        res.status(200).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -66,7 +67,7 @@ export const deleteTask = async (req, res) => {
         const task = await Task.findByIdAndDelete(req.params.id);
 
         if (task) {
-            res.status(200).json('Task deleted!');
+            res.status(200).json({ message: 'Task deleted' });
         } else {
             res.status(404).json('Task not found!')
         }

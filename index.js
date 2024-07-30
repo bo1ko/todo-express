@@ -4,7 +4,7 @@ import config from 'config';
 import path from 'path';
 import { fileURLToPath } from "url";
 
-import { taskRoutes, authRoutes, mainRoutes } from './routes/index.js';
+import { taskRoutes } from './routes/index.js';
 
 
 const app = express();
@@ -22,13 +22,13 @@ mongoose
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
-app.use('/', mainRoutes);
-app.use('/todo', taskRoutes);
-app.use('/auth', authRoutes);
+
+app.use('/', taskRoutes);
 
 app.listen(port, () => {
     console.log('SERVER OK')

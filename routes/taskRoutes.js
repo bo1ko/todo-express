@@ -2,17 +2,20 @@ import express from 'express';
 
 import { TaskController } from '../controllers/index.js';
 import { taskCreateValidation, taskUpdateValidation } from "../validation.js";
-import { handleValidationErrors, checkAuth } from "../utils/index.js";
+import handleValidationErrors from "../utils/handleValidationErrors.js";
 
 
 const router = express.Router();
 
 
-router.post('/', checkAuth, taskCreateValidation, handleValidationErrors, TaskController.createTask);
-router.get('/', checkAuth, handleValidationErrors,TaskController.getAllTasks);
+router.get('/', TaskController.getAllTasks);
+router.post('/', taskCreateValidation, handleValidationErrors, TaskController.createTask);
+router.delete('/:id', TaskController.deleteTask);
+
 router.get('/:id', TaskController.getTaskById);
-router.put('/:id', checkAuth, taskUpdateValidation, handleValidationErrors, TaskController.updateTask);
-router.delete('/:id', checkAuth, handleValidationErrors, TaskController.deleteTask)
+
+router.patch('/:id', taskUpdateValidation, handleValidationErrors, TaskController.updateTask);
+
 
 
 export default router;
