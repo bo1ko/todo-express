@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 const updateTask = await response.json();
                 updateTaskInList(updateTask);
+                deleteTaskInList();
                 this.reset();
             } else {
                 showError('Failed to update task');
@@ -67,22 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
         // Function to delete a task
-        document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const id = this.querySelector('input[name="id"]').value;
-    
-                const response = await fetch(`/${id}`, {
-                    method: 'DELETE'
-                });
-    
-                if (response.ok) {
-                    window.location.href = '/';
-                } else {
-                    showError('Failed to delete task');
-                }
-            });
-        });
+        deleteTaskInList();
+        
     }
 
 
@@ -272,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     
             if (response.ok) {
-                document.getElementById(`task-${id}`).remove();
+                window.location.href = '/';
             } else {
                 showError('Failed to delete task');
             }
@@ -296,6 +283,26 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 showError('Failed to update task');
             }
+        });
+    }
+
+    function deleteTaskInList() {
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const id = this.querySelector('input[name="id"]').value;
+    
+                const response = await fetch(`/${id}`, {
+                    method: 'DELETE'
+                });
+    
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    console.log(response);
+                    showError('Failed to delete task');
+                }
+            });
         });
     }
     
